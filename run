@@ -42,12 +42,14 @@ done
 
 # Download meetings based on those pages
 for meeting in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
+    echo $location
     ./download_meeting.sh "$meeting"
     sleep 0s
 done
 
 # Download locations based on those pages
 for location in $(sqlite3 intherooms.db 'SELECT DISTINCT "Location Link" FROM meeting_search'); do
+    echo $location
     ./download_location.sh "$location"
     sleep 0s
 done

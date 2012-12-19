@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if ! env|grep '^IN_THE_ROOMS_ROOT='; then
+if ! env|grep '^IN_THE_ROOMS_ROOT=' > /dev/null; then
     echo 'Not activated'
     exit 1
 fi
