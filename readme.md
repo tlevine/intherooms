@@ -1,6 +1,27 @@
 Scrape locations from here.
 http://meetings.intherooms.com/meetings/search
 
+## How to run
+
+First, activate
+
+    . activate
+
+Now, you can run any of the scripts.
+
+    sqlite3 intherooms.db < schema.sql
+    download-search [page number]
+    download-meeting [url]
+    download-locations [url]
+    parse-search intherooms.db [page number]
+    parse-meeting intherooms.db [url]
+    parse-locations intherooms.db [url]
+
+This is all wrapped up in one script.
+
+    run
+
+## Scope
 robots.txt is good.
 
 Questions
