@@ -28,14 +28,17 @@ def table_data(html):
         rowdata = dict(zip(keys, values))
         rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0]
         rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0]
-        if ':' in rowdata['Time']:
+        if 'unknown' == rowdata['Time']:
+            rowdata['Time'] = ''
+        elif ':' in rowdata['Time']:
+            _t = rowdata['Time'].replace('Np', '00').replace('Mp', '00')
             rowdata['Time'] = datetime.datetime.strptime(
-                rowdata['Time'].replace('Np', '00'), '%I:%M %p'
-            )
+                _t, '%I:%M %p'
+            ).strftime('%H:%M')
         else:
             rowdata['Time'] = datetime.datetime.strptime(
-                rowdata['Time'].replace('Np', '00') + ' pm', '%I%M %p'
-            )
+                rowdata['Time'] + ' pm', '%I%M %p'
+            ).strftime('%H:%M')
         data.append(rowdata)
     return data
 
