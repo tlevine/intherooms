@@ -46,8 +46,8 @@ def main_sqlite():
         adapt_and_convert = True
     )
     n = page_number_arg()
-    url = page(n)
-    html = lxml.html.parse(url).getroot()
+    filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches', '%d.html' % n)
+    html = lxml.html.parse(filename).getroot()
     data = table_data(html)
     dt.insert(data, 'meeting_search')
     print('Parsed page %d' % n)
