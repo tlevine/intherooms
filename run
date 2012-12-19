@@ -2,9 +2,9 @@
 set -e
 
 # Activate
-env|grep '^IN_THE_ROOMS_ROOT=' || . activate
+env|grep '^IN_THE_ROOMS_ROOT=' || . ./activate
 
-# Go through pages
+# Go through search pages
 for page in $(seq 1 400); do
     # Skip things that have already been downloaded.
     [ -e "$IN_THE_ROOMS_ROOT/searches/$page.html" ] && continue
@@ -18,8 +18,13 @@ for page in $(seq 1 400); do
         mv "$IN_THE_ROOMS_ROOT/searches/$page.html" .last.html
         echo I stopped at page $page. If the script worked properly, this is because
         echo page $(($page - 1)) was the last page. Check .last.html to make sure.
-        exit
+        break
     fi
 
     sleep 8s
+done
+
+# Parse those pages.
+for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
+    ./parse_search.py $page
 done
