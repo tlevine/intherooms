@@ -10,16 +10,20 @@ First, activate
 Now, you can run any of the scripts.
 
     sqlite3 intherooms.db < schema.sql
-    download-search [page number]
-    download-meeting [url]
-    download-locations [url]
-    parse-search intherooms.db [page number]
-    parse-meeting intherooms.db [url]
-    parse-locations intherooms.db [url]
+    download_search [page number]
+    download_meeting [url]
+    download_location [url]
+    parse_search intherooms.db [page number]
+    parse_meeting intherooms.db [url]
+    parse_location intherooms.db [url]
 
 This is all wrapped up in one script.
 
     run
+
+Generate a csv.
+
+    sqlite3 -header -csv intherooms.db 'select * from meeting_search' > intherooms.csv
 
 ## Scope
 robots.txt is good.
