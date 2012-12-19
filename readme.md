@@ -25,6 +25,10 @@ Generate a csv.
 
     sqlite3 -header -csv intherooms.db 'select * from meeting_search' > intherooms.csv
 
+Diagnose things
+
+    sqlite3 intherooms.db 'SELECT page, count(*) FROM meeting_search GROUP BY page'
+
 ## Scope
 robots.txt is good.
 
