@@ -1,4 +1,7 @@
 ## master
 *.pyc
 *.~lock.*
+
+# Specific files
 .last.html
+intherooms.db

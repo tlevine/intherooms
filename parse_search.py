@@ -30,9 +30,20 @@ def table_data(html):
         data.append(rowdata)
     return data
 
-if __name__ == '__main__':
+def main_json():
     import json
     url = page(page_number_arg())
     html = lxml.html.parse(url)
     data = table_data(html)
     print(json.dumps(data))
+
+def main_sqlite():
+    import dumptruck
+    dt = dumptruck.DumpTruck(dbname = os.path.join('IN_THE_ROOMS_ROOT'), 'intherooms.db')
+    url = page(page_number_arg())
+    html = lxml.html.parse(url)
+    data = table_data(html)
+    dt.insert(data)
+
+if __name__ == '__main__':
+    main_sqlite()
