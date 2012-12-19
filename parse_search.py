@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 from lxml.html import parse
+from collections import OrderedDict
 
 def is_valid_page(html):
     error_text = [error_pane.text_content() for error_pane in html.cssselect('.error-pane')]
@@ -25,3 +26,10 @@ def table_data(html):
         rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')
         data.append(rowdata)
     return data
+
+if __name__ == '__main__':
+    import json
+    url = page(page_number_arg())
+    html = lxml.html.parse(url)
+    data = table_data(html)
+    return json.dumps(data)

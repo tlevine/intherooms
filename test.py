@@ -6,7 +6,7 @@ import json
 from lxml.html import parse
 import nose.tools as n
 
-from parse_search import is_valid_page, has_correct_page_number
+from parse_search import is_valid_page, has_correct_page_number, table_data
 
 FIXTURES = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'fixtures')
 
@@ -27,5 +27,5 @@ class TestParseSearch:
     def test_data_should_match(self):
         'Automatically parsed data should match our manual parse.'
         html = parse(os.path.join(FIXTURES, 'search-237.html')).getroot()
-        data = json.load(os.path.join(FIXTURES, 'search-237.json'))
-        n.assert_list_equal(html, data)
+        expected_data = json.load(open(os.path.join(FIXTURES, 'search-237.json')))
+        n.assert_list_equal(table_data(html), expected_data)
