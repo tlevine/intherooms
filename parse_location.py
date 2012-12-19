@@ -42,7 +42,7 @@ def main():
     }
     data.update(coords(source))
     data['Meeting Description'] = description(html)
-    print data
+    dt.insert(data)
 
 if __name__ == '__main__':
     main()
