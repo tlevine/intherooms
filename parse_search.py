@@ -22,6 +22,8 @@ def table_data(html):
     data = []
     for tr in trs_body:
         values = [td.text_content() for td in tr.cssselect('td')]
+        values[2] = '\n'.join(tr.xpath('td[position()=3]/text()')).replace('  ', ' ')
+
         rowdata = dict(zip(keys, values))
         rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0]
         rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0]
