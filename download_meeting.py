@@ -18,5 +18,9 @@ if [ -z "$_id" ]; then
     exit 1
 fi
 
-wget -O "$IN_THE_ROOMS_ROOT/meetings/${_id}".html "http://meetings.intherooms.com${url}"
-echo Downloaded $url
+if [ -e "$IN_THE_ROOMS_ROOT/meetings/${_id}".html ]; then
+    Already downloaded $url
+else
+    wget -O "$IN_THE_ROOMS_ROOT/meetings/${_id}".html "http://meetings.intherooms.com${url}"
+    echo Downloaded $url
+fi
