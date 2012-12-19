@@ -1,8 +1,12 @@
+#!/usr/bin/env python2
+
 import os
 import re
 
 import lxml.html
 import dumptruck
+
+from lib import _id
 
 COORDS = re.compile(r'var startPoint = new google.maps.LatLng\(([0-9.]+), (-[0-9.]+)\);')
 
@@ -19,8 +23,13 @@ def description(html):
 
 def main():
     import sys
-    filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'locations', _id(sys.argv[1]))
+    if len(sys.argv) != 2:
+        print("USAGE: %d [location page url]" % sys.argv[0])
+        exit(1)
 
+    url = sys.argv[1]
+
+    filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'locations', '%d.html' % _id(url))
     dt = dumptruck.DumpTruck(
         dbname = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'intherooms.db'),
         adapt_and_convert = True
@@ -28,3 +37,13 @@ def main():
 
     source = open(filename).read()
     html = lxml.html.parse(filename).getroot()
+
+    data = {
+        'Url': url,
+    }
+    data.update(coords(source))
+    data['Meeting Description'] = description(html)
+    print data
+
+if __name__ == '__main__':
+    main()

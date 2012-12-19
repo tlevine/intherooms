@@ -7,7 +7,8 @@ def page(number):
 
 def _id(url):
     'Convert a url into an id.'
-    return int(url.split('/')[-1])
+    h = url.split('/')[-1]
+    return int(h)
 
 def page_number_arg():
     import sys
