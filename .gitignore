@@ -1,3 +1,4 @@
-*.pyc
 ## master
+*.pyc
 *.~lock.*
+.last.html
