@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 
 import os
-import json
+import csv
 
 from lxml.html import parse
 import nose.tools as n
@@ -27,5 +27,16 @@ class TestParseSearch:
     def test_data_should_match(self):
         'Automatically parsed data should match our manual parse.'
         html = parse(os.path.join(FIXTURES, 'search-237.html')).getroot()
-        expected_data = json.load(open(os.path.join(FIXTURES, 'search-237.json')))
-        n.assert_list_equal(table_data(html), expected_data)
+        f = open(os.path.join(FIXTURES, 'search-237.csv'))
+
+        expected = list(csv.DictReader(f))
+        observed = table_data(html)
+
+        if len(observed) == len(expected):
+            # Pretty printing
+            for o, e in zip(observed, expected):
+                print o
+                n.assert_dict_equal(o, e)
+        else:
+            # Ugly printing
+            n.assert_list_equal(observed, expected)

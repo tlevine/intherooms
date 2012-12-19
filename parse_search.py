@@ -1,8 +1,7 @@
 #!/usr/bin/env python2
 from lxml.html import parse
-from collections import OrderedDict
 
-from lib import page_number, page_number_arg
+from lib import page, page_number_arg
 
 def is_valid_page(html):
     error_text = [error_pane.text_content() for error_pane in html.cssselect('.error-pane')]
@@ -15,17 +14,17 @@ def has_correct_page_number(html, page_number):
 
 def table_data(html):
     trs = html.cssselect('.all-meetings tr')
-    tr_head = trs[1]
+    tr_head = trs[0]
     trs_body = trs[1:]
 
     keys = tr_head.xpath('th/text()')
 
     data = []
     for tr in trs_body:
-        values = [td.text_content for td in tr.cssselect('td')]
-        rowdata = OrderedDict(zip(keys, values))
-        rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')
-        rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')
+        values = [td.text_content() for td in tr.cssselect('td')]
+        rowdata = dict(zip(keys, values))
+        rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0]
+        rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0]
         data.append(rowdata)
     return data
 
