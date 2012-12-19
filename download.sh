@@ -6,6 +6,9 @@ env|grep '^IN_THE_ROOMS_ROOT=' || . activate
 
 # Go through pages
 for page in $(seq 1 400); do
+    # Skip things that have already been downloaded.
+    [ -e "$IN_THE_ROOMS_ROOT/searches/$page.html" ] && continue
+
     # Download a webpage.
     ./download_search.py $page
 
