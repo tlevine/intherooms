@@ -23,4 +23,5 @@ if [ -e "$IN_THE_ROOMS_ROOT/locations/${_id}".html ]; then
 else
     wget -O "$IN_THE_ROOMS_ROOT/locations/${_id}".html "http://meetings.intherooms.com${url}"
     echo Downloaded $url
+    sleep 0.5s
 fi
