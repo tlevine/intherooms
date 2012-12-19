@@ -4,9 +4,6 @@ set -e
 # Activate
 env|grep '^IN_THE_ROOMS_ROOT=' || . ./activate
 
-# Schema
-sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
-
 # Go through search pages
 for page in $(seq 1 400); do
     # Skip things that have already been downloaded.
@@ -24,8 +21,14 @@ for page in $(seq 1 400); do
         break
     fi
 
-    sleep 8s
+    sleep 1s
 done
+
+# This doesn't really detect the database's current state, so delete it and
+# rebuild if something goes wrong.
+
+# Schema
+sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
 
 # Parse those pages.
 for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
@@ -34,10 +37,12 @@ done
 
 # Download meetings based on those pages
 for meeting in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
-    ./download_meeting "$meeting"
+    ./download_meeting.sh "$meeting"
+    sleep 1s
 done
 
 # Download locations based on those pages
 for location in $(sqlite3 intherooms.db 'SELECT DISTINCT "Location Link" FROM meeting_search'); do
-    ./download_location "$location"
+    ./download_location.sh "$location"
+    sleep 1s
 done
