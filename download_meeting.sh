@@ -11,6 +11,12 @@ if [ "$#" != '1' ]; then
 fi
 
 url=$(echo "$1"|sed -e 's_^/alanon/_/aa/_' -e 's_//_/-/_g')
+
+# Manual replacement for one weird url
+if echo "$url"|grep 73215 > /dev/null
+    url='/ga/_/73215'
+fi
+
 _id=$(echo "$url"|cut -d/ -f4)
 
 if [ -z "$_id" ]; then
