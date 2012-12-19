@@ -14,7 +14,7 @@ url=$(echo "$1"|sed -e 's_//_/-/g')
 _id=$(echo "$url"|cut -d/ -f5)
 
 if [ -z "$_id" ]; then
-    echo "The url $url has an empty id."
+    echo "The url ${url} has an empty id."
     exit 1
 fi
 
