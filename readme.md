@@ -1,6 +1,7 @@
 Scrape locations from here.
 http://meetings.intherooms.com/meetings/search
 
+robots.txt is good.
 
 Questions
 * Can we do without the additional meeting information for now
@@ -21,3 +22,6 @@ specialized tasks.
 
 Consider telling In The Rooms about the MVP as a way to convince them that
 providing you with the data will be useful.
+
+
+Everything I said is fine.
