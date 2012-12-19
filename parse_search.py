@@ -17,7 +17,7 @@ def table_data(html):
     tr_head = trs[0]
     trs_body = trs[1:]
 
-    keys = tr_head.xpath('th/text()')
+    keys = map(unicode, tr_head.xpath('th/text()'))
 
     data = []
     for tr in trs_body:
@@ -38,12 +38,19 @@ def main_json():
     print(json.dumps(data))
 
 def main_sqlite():
+    import os
     import dumptruck
-    dt = dumptruck.DumpTruck(dbname = os.path.join('IN_THE_ROOMS_ROOT'), 'intherooms.db')
-    url = page(page_number_arg())
-    html = lxml.html.parse(url)
+    import lxml.html
+    dt = dumptruck.DumpTruck(
+        dbname = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'intherooms.db'),
+        adapt_and_convert = True
+    )
+    n = page_number_arg()
+    url = page(n)
+    html = lxml.html.parse(url).getroot()
     data = table_data(html)
-    dt.insert(data)
+    dt.insert(data, 'meeting_search')
+    print('Parsed page %d' % n)
 
 if __name__ == '__main__':
     main_sqlite()

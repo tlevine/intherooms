@@ -4,6 +4,9 @@ set -e
 # Activate
 env|grep '^IN_THE_ROOMS_ROOT=' || . ./activate
 
+# Schema
+sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
+
 # Go through search pages
 for page in $(seq 1 400); do
     # Skip things that have already been downloaded.
