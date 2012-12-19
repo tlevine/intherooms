@@ -1,4 +1,8 @@
+#!/usr/bin/env python2
+
 import os
+import json
+
 from lxml.html import parse
 import nose.tools as n
 
@@ -16,6 +20,12 @@ class TestParseSearch:
         html = parse(os.path.join(FIXTURES, 'search-237.html')).getroot()
         n.assert_true(is_valid_page(html))
     def test_page_number_matcher_should_work(self):
+        'We should be able to tell whether the page corresponds to a given page number.'
         html = parse(os.path.join(FIXTURES, 'search-237.html')).getroot()
         n.assert_true(has_correct_page_number(html, 237))
         n.assert_false(has_correct_page_number(html, 8))
+    def test_data_should_match(self):
+        'Automatically parsed data should match our manual parse.'
+        html = parse(os.path.join(FIXTURES, 'search-237.html')).getroot()
+        data = json.load(os.path.join(FIXTURES, 'search-237.json'))
+        n.assert_list_equal(html, data)

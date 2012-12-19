@@ -9,3 +9,5 @@ def is_valid_page(html):
 def has_correct_page_number(html, page_number):
     observed_page_numbers = set(map(int, html.xpath('//span[@class="current"]/text()')))
     return observed_page_numbers == {page_number}
+
+def has_c
