@@ -57,10 +57,10 @@ done
 
 # Parse the locations
 for url in $(sqlite3 intherooms.db 'SELECT "Location Link" FROM meeting_search'); do
-    echo ./parse_location.py $url
+    ./parse_location.py $url
 done
 
 # Parse the meetings.
 for url in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
-    echo ./parse_meeting.py $url
+    ./parse_meeting.py $url
 done
