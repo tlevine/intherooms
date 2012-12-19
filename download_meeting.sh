@@ -13,7 +13,7 @@ fi
 url=$(echo "$1"|sed -e 's_^/alanon/_/aa/_' -e 's_//_/-/_g')
 
 # Manual replacement for one weird url
-if echo "$url"|grep 73215 > /dev/null
+if echo "$url"|grep 73215 > /dev/null; then
     url='/ga/_/73215'
 fi
 

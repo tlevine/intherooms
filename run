@@ -40,6 +40,7 @@ for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
     fi
 done
 
+set +e
 # Download meetings based on those pages
 for meeting in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
     echo $meeting
