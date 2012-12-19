@@ -10,7 +10,7 @@ if [ "$#" != '1' ]; then
     echo "USAGE: $0 [url]"
 fi
 
-url=$(echo "$1"|sed -e 's_//_/-/g')
+url=$(echo "$1"|sed -e 's_//_/-/_g')
 _id=$(echo "$url"|cut -d/ -f5)
 
 if [ -z "$_id" ]; then
