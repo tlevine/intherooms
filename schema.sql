@@ -13,8 +13,8 @@ CREATE TABLE meeting_search (
 CREATE TABLE meeting_info (
   "Url" TEXT NOT NULL,
   "Meeting Description" TEXT NOT NULL,
-  FOREIGN KEY Url REFERENCES meeting_search("Meeting Title Link"),
-  UNIQUE("Meeting Title Link")
+  FOREIGN KEY ("Url") REFERENCES meeting_search ("Meeting Title Link"),
+  UNIQUE("Url")
 );
 
 
