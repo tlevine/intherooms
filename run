@@ -29,7 +29,7 @@ done
 
 # Schema
 test -e "$IN_THE_ROOMS_ROOT/intherooms.db" ||
-  sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
+    sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
 
 # Parse those pages.
 for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do

@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 from lxml.html import parse
+import datetime
 
 from lib import page, page_number_arg
 
@@ -27,6 +28,16 @@ def table_data(html):
         rowdata = dict(zip(keys, values))
         rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0]
         rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0]
+        if ':' in rowdata['Time']:
+            datetime.datetime.strptime(
+                '2000-01-01 ' + rowdata['Time'].replace('Np', '00'),
+                '%Y-%d-%m %H:%M %r'
+            )
+        else:
+            datetime.datetime.strptime(
+                '2000-01-01 ' + rowdata['Time'].replace('Np', '00') + ' pm',
+                '%Y-%d-%m %H%M %r'
+            )
         data.append(rowdata)
     return data
 
