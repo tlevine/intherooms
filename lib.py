@@ -10,3 +10,4 @@ def page_number_arg():
     page_number = int(sys.argv[1])
     if page_number < 0 or page_number > 400:
         raise ValueError('Page number should probably be between 0 and 400.')
+    return page_number

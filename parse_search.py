@@ -2,6 +2,8 @@
 from lxml.html import parse
 from collections import OrderedDict
 
+from lib import page_number, page_number_arg
+
 def is_valid_page(html):
     error_text = [error_pane.text_content() for error_pane in html.cssselect('.error-pane')]
     is_valid = [] == filter(None, error_text)
@@ -32,4 +34,4 @@ if __name__ == '__main__':
     url = page(page_number_arg())
     html = lxml.html.parse(url)
     data = table_data(html)
-    return json.dumps(data)
+    print(json.dumps(data))

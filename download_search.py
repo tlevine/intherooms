@@ -4,7 +4,7 @@ import os
 from urllib import urlretrieve
 from lxml.html import parse
 
-from lib import page
+from lib import page, page_number_arg
 
 def download(number):
     filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches', '%d.html' % number)
