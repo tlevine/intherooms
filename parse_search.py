@@ -30,11 +30,11 @@ def table_data(html):
         rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0]
         if ':' in rowdata['Time']:
             rowdata['Time'] = datetime.datetime.strptime(
-                rowdata['Time'].replace('Np', '00'), '%I:%M %r'
+                rowdata['Time'].replace('Np', '00'), '%I:%M %p'
             )
         else:
             rowdata['Time'] = datetime.datetime.strptime(
-                rowdata['Time'].replace('Np', '00') + ' pm', '%I%M %r'
+                rowdata['Time'].replace('Np', '00') + ' pm', '%I%M %p'
             )
         data.append(rowdata)
     return data
