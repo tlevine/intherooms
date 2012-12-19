@@ -1,0 +1,9 @@
+[submodule "locations"]
+	path = locations
+	url = git@github.com:tlevine/intherooms-locations
+[submodule "searches"]
+	path = searches
+	url = git@github.com:tlevine/intherooms-searches.git
+[submodule "meetings"]
+	path = meetings
+	url = git@github.com:tlevine/intherooms-meetings.git
