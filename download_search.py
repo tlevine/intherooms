@@ -17,3 +17,4 @@ if __name__ == '__main__':
     if page_number < 0 or page_number > 400:
         raise ValueError('Page number should probably be between 0 and 400.')
     download(page_number)
+    print('Downloaded page %d' % page_number)
