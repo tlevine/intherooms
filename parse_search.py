@@ -49,6 +49,8 @@ def main_sqlite():
     filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches', '%d.html' % n)
     html = lxml.html.parse(filename).getroot()
     data = table_data(html)
+    for row in data:
+        row['Page'] = n
     dt.insert(data, 'meeting_search')
     print('Parsed page %d' % n)
 
