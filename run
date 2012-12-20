@@ -4,9 +4,6 @@ set -e
 # Activate
 env|grep '^IN_THE_ROOMS_ROOT=' || . ./activate
 
-# Schema
-sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
-
 # Go through search pages
 for page in $(seq 1 400); do
     # Skip things that have already been downloaded.
@@ -24,10 +21,46 @@ for page in $(seq 1 400); do
         break
     fi
 
-    sleep 8s
+    sleep 1s
 done
+
+# This doesn't really detect the database's current state, so delete it and
+# rebuild if something goes wrong.
+
+# Schema
+test -e "$IN_THE_ROOMS_ROOT/intherooms.db" ||
+    sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
 
 # Parse those pages.
 for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
-    ./parse_search.py $page
+    if [ $(sqlite3 intherooms.db "SELECT count(*) FROM meeting_search WHERE page = $page") = '0' ]; then
+        ./parse_search.py $page
+    else
+        echo Page $page has already been parsed.
+    fi
+done
+
+set +e
+# Download meetings based on those pages
+for meeting in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
+    echo $meeting
+    ./download_meeting.sh "$meeting"
+    sleep 0s
+done
+
+# Download locations based on those pages
+for location in $(sqlite3 intherooms.db 'SELECT DISTINCT "Location Link" FROM meeting_search'); do
+    echo $location
+    ./download_location.sh "$location"
+    sleep 0s
+done
+
+# Parse the locations
+for url in $(sqlite3 intherooms.db 'SELECT "Location Link" FROM meeting_search'); do
+    ./parse_location.py $url
+done
+
+# Parse the meetings.
+for url in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
+    ./parse_meeting.py $url
 done

@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 from lxml.html import parse
+import datetime
 
 from lib import page, page_number_arg
 
@@ -27,6 +28,17 @@ def table_data(html):
         rowdata = dict(zip(keys, values))
         rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0]
         rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0]
+        if 'unknown' == rowdata['Time']:
+            rowdata['Time'] = ''
+        elif ':' in rowdata['Time']:
+            _t = rowdata['Time'].replace('Np', '00').replace('Mp', '00')
+            rowdata['Time'] = datetime.datetime.strptime(
+                _t, '%I:%M %p'
+            ).strftime('%H:%M')
+        else:
+            rowdata['Time'] = datetime.datetime.strptime(
+                rowdata['Time'] + ' pm', '%I%M %p'
+            ).strftime('%H:%M')
         data.append(rowdata)
     return data
 
@@ -49,6 +61,8 @@ def main_sqlite():
     filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches', '%d.html' % n)
     html = lxml.html.parse(filename).getroot()
     data = table_data(html)
+    for row in data:
+        row['Page'] = n
     dt.insert(data, 'meeting_search')
     print('Parsed page %d' % n)
 
