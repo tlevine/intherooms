@@ -57,10 +57,14 @@ done
 
 # Parse the locations
 for url in $(sqlite3 intherooms.db 'SELECT "Location Link" FROM meeting_search'); do
-    ./parse_location.py $url
+    if [ $(sqlite3 intherooms.db "SELECT count(*) FROM location WHERE Url = '$url'") = '0' ]
+        ./parse_location.py $url
+    fi
 done
 
 # Parse the meetings.
 for url in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
-    ./parse_meeting.py $url
+    if [ $(sqlite3 intherooms.db "SELECT count(*) FROM meeting_info WHERE Url = '$url'") = '0' ]
+        ./parse_meeting.py $url
+    fi
 done
