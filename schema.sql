@@ -20,8 +20,15 @@ CREATE TABLE meeting_info (
   UNIQUE("Url")
 );
 
+CREATE TABLE location (
+  "Url" TEXT NOT NULL,
+  "Location Description" TEXT NOT NULL,
+  FOREIGN KEY ("Url") REFERENCES meeting_search ("Meeting Title Link"),
+  UNIQUE("Url")
+);
 
 CREATE VIEW meeting AS
 SELECT *
 FROM meeting_search
-JOIN meeting_info ON "Url" = "Meeting Title Link";
+JOIN meeting_info ON "meeting_info"."Url" = "Meeting Title Link";
+JOIN location ON "location"."Url" = "Meeting Title Link";
