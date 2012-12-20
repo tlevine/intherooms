@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 import os
 import dumptruck
 import lxml.html
@@ -15,5 +16,5 @@ def main():
         adapt_and_convert = True
     )
     html = lxml.html.parse(filename).getroot()
-    data = meeting_info(html)
+    data = {'Meeting Description': meeting_info(html)}
     dt.insert(data, 'meeting_info')

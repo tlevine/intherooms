@@ -41,8 +41,8 @@ def main():
         'Url': url,
     }
     data.update(coords(source))
-    data['Meeting Description'] = description(html)
-    dt.insert(data)
+    data['Location Description'] = description(html)
+    dt.insert(data, 'location')
 
 if __name__ == '__main__':
     main()
