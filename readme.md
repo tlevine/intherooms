@@ -24,6 +24,10 @@ I made scripts for batch processing of the location and meeting pages.
     ./parse_all_meetings.sh intherooms.db
     ./parse_all_locations.sh intherooms.db
 
+Some manual fixes to weird pages are included.
+
+    sqlite3 intherooms.db < manual_fixes.sql
+
 Everything is wrapped up in one script.
 
     run
@@ -34,6 +38,9 @@ Generate a csv.
 
 Diagnose things
 
+    ./counts.sh
+    sqlite3 intherooms.db < todo.sql
+    sqlite3 intherooms.db < interesting.sql
     sqlite3 intherooms.db 'SELECT page, count(*) FROM meeting_search GROUP BY page'
 
 ## Scope
