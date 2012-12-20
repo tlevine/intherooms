@@ -1,5 +1,17 @@
-Scrape locations from here.
+In The Rooms meetings database
+===
+
+I got locations from here.
 http://meetings.intherooms.com/meetings/search
+
+## Data
+If you just want the data, you don't need to run anything. Download it as
+[geojson](http://chainsaw.thomaslevine.com/intherooms.json),
+[csv](http://chainsaw.thomaslevine.com/intherooms.csv) or
+[sqlite](http://chainsaw.thomaslevine.com/intherooms.db).
+
+The location information is normalized in the SQLite version. The "Meeting
+Description" and "Location Description" fields can be structured more.
 
 ## How to run
 
