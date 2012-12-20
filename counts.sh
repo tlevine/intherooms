@@ -1,7 +1,11 @@
 #!/bin/sh
 
-echo -n Meeting info:\ 
-sqlite3 intherooms.db 'select count(*) from meeting_info'
+c() {
+    numerator=$(sqlite3 intherooms.db "select count(*) from [$1]") || return
+    denominator=$(ls "$2"|wc -l)
+    percent=$((100 * $numerator / $denominator))
+    echo "$2: $numerator of $denominator ($percent%)"
+}
 
-echo -n Location:\ 
-sqlite3 intherooms.db 'select count(*) from location'
+c meeting_info meetings
+c location locations

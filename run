@@ -56,11 +56,13 @@ for location in $(sqlite3 intherooms.db 'SELECT DISTINCT "Location Link" FROM me
 done
 
 # Parse the locations
-for url in $(sqlite3 intherooms.db 'SELECT "Location Link" FROM meeting_search'); do
+locations_todo=$(sqlite3 intherooms.db 'SELECT "Location Link" FROM "meeting_search" WHERE "Location Link" NOT IN (SELECT "Url" FROM "location");')
+for url in $locations_todo; do
     ./parse_location.py $url
 done
 
 # Parse the meetings.
-for url in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
+meetings_todo=$(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM "meeting_search" WHERE "Meeting Title Link" NOT IN (SELECT "Url" FROM "meeting_info");')
+for url in $meetings_todo; do
     ./parse_meeting.py $url
 done
