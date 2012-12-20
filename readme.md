@@ -19,8 +19,10 @@ Now, you can run any of the scripts.
 
 I made scripts for batch processing of the location and meeting pages.
 
-    parse_all_meetings.sh intherooms.db
-    parse_all_locations.sh intherooms.db
+    ./download_all_meetings.sh intherooms.db
+    ./download_all_locations.sh intherooms.db
+    ./parse_all_meetings.sh intherooms.db
+    ./parse_all_locations.sh intherooms.db
 
 Everything is wrapped up in one script.
 

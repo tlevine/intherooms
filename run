@@ -43,14 +43,7 @@ done
 # Manually fix some weird records.
 sqlite3 intherooms.db < manual_fixes.sql
 
-set +e
-# Download meetings based on those pages
-for meeting in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
-    echo $meeting
-    ./download_meeting.sh "$meeting"
-    sleep 0s
-done
-
-set -e
+./download_all_meetings.sh
+./download_all_locations.sh
 ./parse_all_meetings.sh
 ./parse_all_locations.sh
