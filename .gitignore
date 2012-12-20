@@ -5,4 +5,5 @@
 # Specific files
 .last.html
 intherooms.db
+intherooms.db-journal
 intherooms.csv
