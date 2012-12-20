@@ -31,4 +31,4 @@ CREATE VIEW meeting AS
 SELECT *
 FROM meeting_search
 JOIN meeting_info ON "meeting_info"."Url" = "Meeting Title Link"
-JOIN location ON "location"."Url" = "Meeting Title Link";
+JOIN location ON "location"."Url" = "Location Link";

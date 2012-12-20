@@ -32,9 +32,13 @@ Everything is wrapped up in one script.
 
     run
 
-Generate a csv.
+Generate a spreadsheet.
 
-    sqlite3 -header -csv intherooms.db 'select * from meeting_search' > intherooms.csv
+    sqlite3 -header -csv intherooms.db 'select * from meeting' > intherooms.csv
+
+Or a geojson
+
+    ./geojson.py intherooms.db > intherooms.json
 
 Diagnose things
 
