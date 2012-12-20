@@ -10,14 +10,19 @@ First, activate
 Now, you can run any of the scripts.
 
     sqlite3 intherooms.db < schema.sql
-    download_search [page number]
-    download_meeting [url]
-    download_location [url]
-    parse_search intherooms.db [page number]
-    parse_meeting intherooms.db [url]
-    parse_location intherooms.db [url]
+    download_search.py [page number]
+    download_meeting.sh [url]
+    download_location.sh [url]
+    parse_search.py intherooms.db [page number]
+    parse_meeting.py intherooms.db [url]
+    parse_location.py intherooms.db [url]
 
-This is all wrapped up in one script.
+I made scripts for batch processing of the location and meeting pages.
+
+    parse_all_meetings.sh intherooms.db
+    parse_all_locations.sh intherooms.db
+
+Everything is wrapped up in one script.
 
     run
 
