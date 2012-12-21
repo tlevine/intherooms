@@ -16,6 +16,9 @@ CREATE TABLE meeting_info (
   "Meeting Description" TEXT NOT NULL,
   "Latitude" FLOAT NOT NULL,
   "Longitude" FLOAT NOT NULL,
+  "Details" TEXT NOT NULL,
+  "Format" TEXT NOT NULL,
+  "Language" TEXT NOT NULL,
   FOREIGN KEY ("Url") REFERENCES meeting_search ("Meeting Title Link"),
   UNIQUE("Url")
 );
