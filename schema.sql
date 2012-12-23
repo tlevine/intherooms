@@ -19,6 +19,7 @@ CREATE TABLE meeting_info (
   "Details" TEXT NOT NULL,
   "Format" TEXT NOT NULL,
   "Language" TEXT NOT NULL,
+  "Phone" TEXT NOT NULL,
   FOREIGN KEY ("Url") REFERENCES meeting_search ("Meeting Title Link"),
   UNIQUE("Url")
 );
