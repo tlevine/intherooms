@@ -5,7 +5,7 @@ This is a hack; move it into parse_meeting.py if I care.
 import re
 import dumptruck
 
-THREE = re.compile(r'Details: (.*)Format: (.*)Language: (.*)')
+PHONE = re.compile(r'.*1?[^0-9]?([0-9]{3})[^0-9]?([0-9]{3})[^0-9]?([0-9]{4}).*')
 
 dt = dumptruck.DumpTruck(dbname = 'intherooms.db')
 for row in dt.execute('SELECT * FROM meeting_info'):
@@ -21,11 +21,13 @@ for row in dt.execute('SELECT * FROM meeting_info'):
     # Reset
     row['Details'] = row['Format'] = row['Language'] = row['Phone'] = ''
 
-    digits = filter(lambda c: c in '1234567890', desc)
-    if len(digits) == 10:
-        row['Phone'] = digits
-    elif len(digits) != 0:
+    phone = re.match(PHONE, desc)
+    if phone:
+        row['Phone'] = phone.group(1) + phone.group(2) + phone.group(3)
+    elif len(filter(lambda c: c in '1234567890', desc)) >= 4:
+        # Print it if it has four digits but wasn't matched.
         print row
+
     m3 = re.match(r'^Details: (.*)Format: (.*)Language: (.*)$', desc)
     m2 = re.match(r'^Details: (.*)(Format|Language): (.*)$', desc)
     m1 = re.match(r'^Details: (.*)$', desc)
