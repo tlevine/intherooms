@@ -19,8 +19,13 @@ for row in dt.execute('SELECT * FROM meeting_info'):
     desc = row['Meeting Description'].replace('\r', ' ').replace('\n', ' ')
 
     # Reset
-    row['Details'] = row['Format'] = row['Language'] = ''
+    row['Details'] = row['Format'] = row['Language'] = row['Phone'] = ''
 
+    digits = filter(lambda c: c in '1234567890', desc)
+    if len(digits) == 10:
+        row['Phone'] = digits
+    elif len(digits) != 0:
+        print row
     m3 = re.match(r'^Details: (.*)Format: (.*)Language: (.*)$', desc)
     m2 = re.match(r'^Details: (.*)(Format|Language): (.*)$', desc)
     m1 = re.match(r'^Details: (.*)$', desc)
