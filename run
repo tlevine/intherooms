@@ -40,27 +40,10 @@ for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
     fi
 done
 
-set +e
-# Download meetings based on those pages
-for meeting in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
-    echo $meeting
-    ./download_meeting.sh "$meeting"
-    sleep 0s
-done
+# Manually fix some weird records.
+sqlite3 intherooms.db < manual_fixes.sql
 
-# Download locations based on those pages
-for location in $(sqlite3 intherooms.db 'SELECT DISTINCT "Location Link" FROM meeting_search'); do
-    echo $location
-    ./download_location.sh "$location"
-    sleep 0s
-done
-
-# Parse the locations
-for url in $(sqlite3 intherooms.db 'SELECT "Location Link" FROM meeting_search'); do
-    ./parse_location.py $url
-done
-
-# Parse the meetings.
-for url in $(sqlite3 intherooms.db 'SELECT "Meeting Title Link" FROM meeting_search'); do
-    ./parse_meeting.py $url
-done
+./download_all_meetings.sh
+./download_all_locations.sh
+./parse_all_meetings.sh
+./parse_all_locations.sh

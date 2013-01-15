@@ -1,5 +1,17 @@
-Scrape locations from here.
+In The Rooms meetings database
+===
+
+I got locations from here.
 http://meetings.intherooms.com/meetings/search
+
+## Data
+If you just want the data, you don't need to run anything. Download it as
+[geojson](http://chainsaw.thomaslevine.com/intherooms.json),
+[csv](http://chainsaw.thomaslevine.com/intherooms.csv) or
+[sqlite](http://chainsaw.thomaslevine.com/intherooms.db).
+
+The location information is normalized in the SQLite version. The "Meeting
+Description" and "Location Description" fields can be structured more.
 
 ## How to run
 
@@ -10,23 +22,41 @@ First, activate
 Now, you can run any of the scripts.
 
     sqlite3 intherooms.db < schema.sql
-    download_search [page number]
-    download_meeting [url]
-    download_location [url]
-    parse_search intherooms.db [page number]
-    parse_meeting intherooms.db [url]
-    parse_location intherooms.db [url]
+    download_search.py [page number]
+    download_meeting.sh [url]
+    download_location.sh [url]
+    parse_search.py intherooms.db [page number]
+    parse_meeting.py intherooms.db [url]
+    parse_location.py intherooms.db [url]
 
-This is all wrapped up in one script.
+I made scripts for batch processing of the location and meeting pages.
+
+    ./download_all_meetings.sh intherooms.db
+    ./download_all_locations.sh intherooms.db
+    ./parse_all_meetings.sh intherooms.db
+    ./parse_all_locations.sh intherooms.db
+
+Some manual fixes to weird pages are included.
+
+    sqlite3 intherooms.db < manual_fixes.sql
+
+Everything is wrapped up in one script.
 
     run
 
-Generate a csv.
+Generate a spreadsheet.
 
-    sqlite3 -header -csv intherooms.db 'select * from meeting_search' > intherooms.csv
+    sqlite3 -header -csv intherooms.db 'select * from meeting' > intherooms.csv
+
+Or a geojson
+
+    ./geojson.py intherooms.db > intherooms.json
 
 Diagnose things
 
+    ./counts.sh
+    sqlite3 intherooms.db < todo.sql
+    sqlite3 intherooms.db < interesting.sql
     sqlite3 intherooms.db 'SELECT page, count(*) FROM meeting_search GROUP BY page'
 
 ## Scope
