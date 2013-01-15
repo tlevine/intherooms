@@ -7,3 +7,12 @@
 [submodule "meetings"]
 	path = meetings
 	url = git@github.com:tlevine/intherooms-meetings.git
+[submodule "searches-sf"]
+	path = searches-sf
+	url = git@github.com:tlevine/intherooms-searches-sf.git
+[submodule "locations-sf"]
+	path = locations-sf
+	url = git@github.com:tlevine/intherooms-locations-sf.git
+[submodule "meetings-sf"]
+	path = meetings-sf
+	url = git@github.com:tlevine/intherooms-meetings-sf.git
