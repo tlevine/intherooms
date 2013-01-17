@@ -33,7 +33,7 @@ test -e "$IN_THE_ROOMS_ROOT/intherooms.db" ||
 
 # Parse those pages.
 for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
-    if [ $(sqlite3 intherooms.db "SELECT count(*) FROM meeting_search WHERE page = $page") = '0' ]; then
+    if [ $(sqlite3 $IN_THE_ROOMS_ROOT/intherooms.db "SELECT count(*) FROM meeting_search WHERE page = $page") = '0' ]; then
         ./parse_search.py $page
     else
         echo Page $page has already been parsed.
@@ -43,7 +43,7 @@ done
 # Manually fix some weird records.
 # sqlite3 intherooms.db < manual_fixes-ny.sql
 
-./download_all_meetings.sh
-./download_all_locations.sh
-./parse_all_meetings.sh
-./parse_all_locations.sh
+./download_all_meetings.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
+./download_all_locations.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
+./parse_all_meetings.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
+./parse_all_locations.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
