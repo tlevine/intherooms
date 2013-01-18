@@ -41,7 +41,7 @@ for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
 done
 
 # Manually fix some weird records.
-sqlite3 intherooms.db < manual_fixes.sql
+sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < manual_fixes.sql
 
 ./download_all_meetings.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
 ./download_all_locations.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
