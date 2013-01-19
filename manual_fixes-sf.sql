@@ -10,6 +10,10 @@ UPDATE meeting_search
 SET "Location Link" = '/locations/Oakland/Central-Office/45746'
 WHERE "Location Link" LIKE '%45746';
 
+UPDATE meeting_search
+SET "Location Link" = '/locations/Reno-NV/-/29814'
+WHERE "Location Link" LIKE '%29814';
+
 -- Page doesn't display meeting information
 INSERT INTO meeting_info (Url, "Meeting Description") VALUES ('104917', '');
 INSERT INTO meeting_info (Url, "Meeting Description") VALUES ('104918', '');
