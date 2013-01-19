@@ -33,7 +33,7 @@ test -e "$IN_THE_ROOMS_ROOT/intherooms.db" ||
 
 # Parse those pages.
 for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
-    if [ $(sqlite3 $IN_THE_ROOMS_ROOT/intherooms.db "SELECT count(*) FROM meeting_search WHERE page = $page") = '0' ]; then
+    if test $(sqlite3 $IN_THE_ROOMS_ROOT/intherooms.db "SELECT count(*) FROM meeting_search WHERE page = $page") -eq 0 ; then
         ./parse_search.py $page
     else
         echo Page $page has already been parsed.
