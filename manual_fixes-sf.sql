@@ -14,6 +14,10 @@ UPDATE meeting_search
 SET "Location Link" = '/locations/Reno-NV/-/29814'
 WHERE "Location Link" LIKE '%29814';
 
+UPDATE meeting_search
+SET "Location Link" = '/locations/Gardnerville/NV/Carson-Valley-Medical-Center/29808'
+WHERE "Location Link" LIKE '%29814';
+
 -- Page doesn't display meeting information
 INSERT INTO meeting_info (Url, "Meeting Description") VALUES ('104917', '');
 INSERT INTO meeting_info (Url, "Meeting Description") VALUES ('104918', '');
