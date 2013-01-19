@@ -19,5 +19,7 @@ SET "Location Link" = '/locations/Gardnerville/-/29808'
 WHERE "Location Link" LIKE '%29808';
 
 -- Page doesn't display meeting information
-INSERT INTO meeting_info (Url, "Meeting Description") VALUES ('104917', '');
-INSERT INTO meeting_info (Url, "Meeting Description") VALUES ('104918', '');
+INSERT INTO meeting_info (Url, "Meeting Description")
+SELECT "Meeting Title Link", ''
+FROM meeting_search WHERE "Meeting Title Link" LIKE '%//%';
+
