@@ -23,3 +23,6 @@ INSERT INTO meeting_info (Url, "Meeting Description")
 SELECT "Meeting Title Link", ''
 FROM meeting_search WHERE "Meeting Title Link" LIKE '%//%';
 
+INSERT INTO meeting_info (Url, "Meeting Description")
+SELECT "Meeting Title Link", ''
+FROM meeting_search WHERE "Meeting Title Link" LIKE '/naranon/%';
