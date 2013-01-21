@@ -4,7 +4,8 @@
 
 # Specific files
 .last.html
-intherooms.db
+intherooms.db-sf
+intherooms.db-ny
 intherooms.db-journal
 intherooms.csv
 intherooms.json
