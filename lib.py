@@ -19,3 +19,24 @@ def page_number_arg():
     if page_number < 0 or page_number > 400:
         raise ValueError('Page number should probably be between 0 and 400.')
     return page_number
+
+def translate(coords, direction, R = 3961, d = 150)
+    '''
+    Move a longitude, latitude pair by 150 miles north, south, east or west.
+    This only works for the northwest quarter of the planet.
+    '''
+    if direction not in 'NSEW':
+        raise ValueError('direction must be one of "N", "S", "E" or "W".')
+
+    lon1, lat1 = coords
+    dx, dy = {
+        'N': ( 0, 1),
+        'S': ( 0,-1),
+        'E': ( 1, 0),
+        'W': (-1, 0)
+    }[direction]
+
+    dlon = d * dx / R
+    dlat = d * dx / R
+
+    return (lon1 + dlon, lat1 + dlat)
