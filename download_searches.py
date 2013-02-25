@@ -4,19 +4,33 @@ import os
 from urllib import urlretrieve
 from lxml.html import parse
 
+from time import sleep
+from random import normalvariate
+
 import lib
 
+def is_last(filename):
+    html = parse(filename)
+    if len(html.xpath('//span[@class="current"][text()="%d"]' % number)) == 0:
+        return True
+    if len(html.xpath('//div[@class="error-pane"][text()="No meetings found."]')) > 0:
+        return True
+
+    return False
+
+def get_dirname(coords):
+    return os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches-usa', '%f,%f' % coords)
+
 def download(coords, number):
-    dirname = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches-usa', '%f,%f' % coords)
-    if not os.path.isdir(dirname):
-        os.makedirs(dirname)
-    filename = os.path.join(dirname, '%d.html' % number)
+    filename = os.path.join(get_dirname(coords), '%d.html' % number)
     urlretrieve(lib.page(coords, number), filename = filename)
 
-    if len(parse(filename).xpath('//span[@class="current"][text()="%d"]' % number)) > 0:
+    if is_last(filename):
         os.rename(filename, '.last.html')
-        print('I stopped at page $page. If the script worked properly, this is because.')
-        print('page %d was the last page. Check .last.html to make sure.' % (number - 1))
+        print('When searching for (%f, %f),' % coords)
+        print('I stopped at page %d. If the script worked properly, this is because' % number)
+        print('page %d was the last page or there were no meetings for this search.' % (number - 1))
+        print('Check .last.html to make sure.')
         return False
 
     else:
@@ -25,6 +39,26 @@ def download(coords, number):
 
 if __name__ == '__main__':
     for coords in lib.choose_coords():
+        dirname = get_dirname(coords)
+
+        # Check if the search is done, or make a directory
+        if os.path.isdir(dirname):
+            if os.path.isfile(os.path.join(dirname, 'done')):
+                continue
+        else:
+            os.makedirs(dirname)
+
+        # Skip pages that are already finished.
+        pages_so_far = set(os.listdir(dirname))
         number = 1
-        while download(coords, number):
+        while ('%d.html' % number) in pages_so_far:
             number += 1
+
+        # Run the search.
+        while download(coords, number):
+            print lib.page(coords, number)
+            number += 1
+            sleep(normalvariate(1.17,0.2))
+
+        # Mark as done.
+        open(os.path.join(dirname, 'done'), 'w').write('')
