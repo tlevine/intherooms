@@ -25,28 +25,42 @@ def page_number_arg():
         raise ValueError('Page number should probably be between 0 and 400.')
     return page_number
 
-def translate(coords, direction, R = 3961, d = 150):
-    '''
-    Move a longitude, latitude pair by 150 miles north, south, east or west.
-    This only works for the northwest quarter of the planet.
-    '''
-    if direction not in 'NSEW':
-        raise ValueError('direction must be one of "N", "S", "E" or "W".')
+def choose_coords():
+    'Choose coordinates spanning the US that are about 150 miles apart.'
+    d_lat = 2.16
+    def d_lon(lat):
+        if lat > 42:
+            return 3
+        elif lat > 30:
+            return 2.5
+        else:
+            return 2.25
 
-    lon1, lat1 = coords
-    dx, dy = {
-        'N': ( 0, 1.0),
-        'S': ( 0,-1.0),
-        'E': ( 1.0, 0),
-        'W': (-1.0, 0)
-    }[direction]
+    lon_min = -122 # Seattle, WA
+    lon_max =  -68 # Caribou, ME
+    lat_min =   25 # Homestead, FL
+    lat_max =   47 # Seattle, WA
 
-    # Slice the sphere into a circle.
-    rx = R * math.cos(math.radians(90 - abs(lat1)))
-    ry = R #* math.sin(math.radians(lat1)))
-    print lon1, R, rx
 
-    d_lon = dx * d / rx
-    d_lat = dy * d / ry
+    def lat(so_far = []):
+        if so_far == []:
+            return lat(so_far = [lat_min])
+        elif so_far[-1] > lat_max:
+            return so_far
+        else:
+            return lat(so_far = so_far + [round(so_far[-1] + d_lat, 2)])
 
-    return (lon1 + d_lon, lat1 + d_lat)
+    def lon(lat, so_far = []):
+        if so_far == []:
+            return lon(lat, so_far = [lon_min])
+        elif so_far[-1] > lon_max:
+            return so_far
+        else:
+            return lon(lat, so_far = so_far + [round(so_far[-1] + d_lon(lat), 2)])
+
+    coords = []
+    for _lat in lat():
+        for _lon in lon(_lat):
+            coords.append((_lon, _lat))
+
+    return coords

@@ -40,11 +40,3 @@ FIXTURES = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'fixtures')
 #        else:
 #            # Ugly printing
 #            n.assert_list_equal(observed, expected)
-
-import lib
-class TestTransformLatLong:
-    def test1(self):
-        observed = lib.translate((-77, 38), 'W', d = 217.892)
-        expected = (-81, 38)
-        n.assert_tuple_equal(observed, expected)
-
