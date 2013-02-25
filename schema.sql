@@ -7,7 +7,9 @@ CREATE TABLE meeting_search (
   "Day" TEXT NOT NULL,
   "Time" TEXT NOT NULL,
   "Fellowship" TEXT NOT NULL,
-  "PAGE" INTEGER NOT NULL,
+  "Search Longitude" FLOAT NOT NULL,
+  "Search Latitude" FLOAT NOT NULL,
+  "Search Page" INTEGER NOT NULL,
   UNIQUE("Meeting Title Link")
 );
 
