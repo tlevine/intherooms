@@ -25,3 +25,6 @@
 [submodule "locations-ny"]
 	path = locations-ny
 	url = git@github.com:tlevine/intherooms-locations-ny.git
+[submodule "searches-usa"]
+	path = searches-usa
+	url = git@github.com:tlevine/intherooms-searches-usa.git
