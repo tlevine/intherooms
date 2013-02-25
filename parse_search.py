@@ -44,7 +44,7 @@ def table_data(html):
 
 def main_json():
     import json
-    url = page(page_number_arg())
+    url = page(*search_args())
     html = lxml.html.parse(url)
     data = table_data(html)
     print(json.dumps(data))
@@ -57,8 +57,8 @@ def main_sqlite():
         dbname = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'intherooms.db'),
         adapt_and_convert = True
     )
-    n = page_number_arg()
-    filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches', '%d.html' % n)
+    dirname, n = search_args()
+    filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches-usa', dirname, '%d.html' % n)
     html = lxml.html.parse(filename).getroot()
     data = table_data(html)
     for row in data:

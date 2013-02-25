@@ -18,12 +18,20 @@ def _id(url):
     'Convert a url into an id.'
     return int(url.split('/')[-1])
 
-def page_number_arg():
+def search_args():
     import sys
-    page_number = int(sys.argv[1])
+    dirname = sys.argv[1]
+    lon, lat = map(float, dirname.split(','))
+    page_number = int(sys.argv[2])
+
     if page_number < 0 or page_number > 400:
         raise ValueError('Page number should probably be between 0 and 400.')
-    return page_number
+    elif lon < -125 or lon > - 60:
+        raise ValueError('Longitude should probably be between -125 and -60.')
+    elif lat < 20 or lat > - 55:
+        raise ValueError('Latitude should probably be between 20 and 55.')
+
+    return dirname, page_number
 
 def choose_coords():
     'Choose coordinates spanning the US that are about 150 miles apart.'
