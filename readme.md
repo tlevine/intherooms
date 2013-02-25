@@ -42,7 +42,7 @@ Some manual fixes to weird pages are included.
 
 Everything is wrapped up in one script.
 
-    run
+    ./run
 
 Generate a spreadsheet.
 

@@ -7,19 +7,21 @@ CREATE TABLE meeting_search (
   "Day" TEXT NOT NULL,
   "Time" TEXT NOT NULL,
   "Fellowship" TEXT NOT NULL,
-  "PAGE" INTEGER NOT NULL,
+  "Search Longitude" FLOAT NOT NULL,
+  "Search Latitude" FLOAT NOT NULL,
+  "Search Page" INTEGER NOT NULL,
   UNIQUE("Meeting Title Link")
 );
 
 CREATE TABLE meeting_info (
   "Url" TEXT NOT NULL,
   "Meeting Description" TEXT NOT NULL,
-  "Latitude" FLOAT NOT NULL,
-  "Longitude" FLOAT NOT NULL,
-  "Details" TEXT NOT NULL,
-  "Format" TEXT NOT NULL,
-  "Language" TEXT NOT NULL,
-  "Phone" TEXT NOT NULL,
+  "Latitude" FLOAT,
+  "Longitude" FLOAT,
+  "Details" TEXT,
+  "Format" TEXT,
+  "Language" TEXT,
+  "Phone" TEXT,
   FOREIGN KEY ("Url") REFERENCES meeting_search ("Meeting Title Link"),
   UNIQUE("Url")
 );
