@@ -4,13 +4,14 @@ import os
 from urllib import urlretrieve
 from lxml.html import parse
 
-from lib import page
+import lib
 
 def download(coords, number):
-    os.makedirs(os.environ['IN_THE_ROOMS_ROOT'], 'searches-usa', '%f,%f' % coords)
-    filename = os.path.join(
-        os.environ['IN_THE_ROOMS_ROOT'], 'searches-usa', '%f,%f' % coords, '%d.html' % number)
-    urlretrieve(page(coords, number), filename = filename)
+    dirname = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'searches-usa', '%f,%f' % coords)
+    if not os.path.isdir(dirname):
+        os.makedirs(dirname)
+    filename = os.path.join(dirname, '%d.html' % number)
+    urlretrieve(lib.page(coords, number), filename = filename)
 
     if len(parse(filename).xpath('//span[@class="current"][text()="%d"]' % number)) > 0:
         os.rename(filename, '.last.html')
@@ -19,7 +20,7 @@ def download(coords, number):
         return False
 
     else:
-        print('Downloaded %f, %f page %d' % coords % page_number)
+        print(('Downloaded (%f, %f), ' % coords) + 'page %d' % number)
         return True
 
 if __name__ == '__main__':
