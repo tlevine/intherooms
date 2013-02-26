@@ -5,24 +5,7 @@ set -e
 env|grep '^IN_THE_ROOMS_ROOT=' || . ./activate
 
 # Go through search pages
-for page in $(seq 1 400); do
-    # Skip things that have already been downloaded.
-    [ -e "$IN_THE_ROOMS_ROOT/searches/$page.html" ] && continue
-
-    # Download a webpage.
-    ./download_search.py $page
-
-    # Test that it worked.
-    if ! grep '<span class="current">'$page'</span>' \
-        "$IN_THE_ROOMS_ROOT/searches/$page.html" > /dev/null; then
-        mv "$IN_THE_ROOMS_ROOT/searches/$page.html" .last.html
-        echo I stopped at page $page. If the script worked properly, this is because
-        echo page $(($page - 1)) was the last page. Check .last.html to make sure.
-        break
-    fi
-
-    sleep 1s
-done
+./download_searches.py
 
 # This doesn't really detect the database's current state, so delete it and
 # rebuild if something goes wrong.
@@ -32,12 +15,14 @@ test -e "$IN_THE_ROOMS_ROOT/intherooms.db" ||
     sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < schema.sql
 
 # Parse those pages.
-for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
-    if test $(sqlite3 $IN_THE_ROOMS_ROOT/intherooms.db "SELECT count(*) FROM meeting_search WHERE page = $page") -eq 0 ; then
-        ./parse_search.py $page
-    else
-        echo Page $page has already been parsed.
-    fi
+for coords in $(ls -d searches-usa/*|cut -d/ -f2); do
+    for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
+        if test $(sqlite3 $IN_THE_ROOMS_ROOT/intherooms.db "SELECT count(*) FROM meeting_search WHERE [Search Page] = $page AND [Search Longitude] || ',' || [Search Latitude] = '$coords';") -eq 0 ; then
+            ./parse_search.py $coords $page
+        else
+            echo Page $page has already been parsed.
+        fi
+    done
 done
 
 # Manually fix some weird records.

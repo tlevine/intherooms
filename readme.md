@@ -22,12 +22,12 @@ First, activate
 Now, you can run any of the scripts.
 
     sqlite3 intherooms.db < schema.sql
-    download_search.py [page number]
-    download_meeting.sh [url]
-    download_location.sh [url]
-    parse_search.py intherooms.db [page number]
-    parse_meeting.py intherooms.db [url]
-    parse_location.py intherooms.db [url]
+    ./download_searches.py
+    ./download_meeting.sh [url]
+    ./download_location.sh [url]
+    ./parse_search.py intherooms.db [coordinates] [page number]
+    ./parse_meeting.py intherooms.db [url]
+    ./parse_location.py intherooms.db [url]
 
 I made scripts for batch processing of the location and meeting pages.
 
