@@ -26,9 +26,9 @@ def search_args():
 
     if page_number < 0 or page_number > 400:
         raise ValueError('Page number should probably be between 0 and 400.')
-    elif lon < -125 or lon > - 60:
+    elif lon < -125 or lon > -60:
         raise ValueError('Longitude should probably be between -125 and -60.')
-    elif lat < 20 or lat > - 55:
+    elif lat < 20 or lat > 55:
         raise ValueError('Latitude should probably be between 20 and 55.')
 
     return dirname, page_number

@@ -16,7 +16,7 @@ test -e "$IN_THE_ROOMS_ROOT/intherooms.db" ||
 
 # Parse those pages.
 for coords in $(ls -d searches-usa/*|cut -d/ -f2); do
-    for page in $(ls searches/*|cut -d. -f1|cut -d\/ -f2); do
+    for page in $(ls searches-usa/$coords|cut -d. -f1|cut -d\/ -f2|grep -v done); do
         if test $(sqlite3 $IN_THE_ROOMS_ROOT/intherooms.db "SELECT count(*) FROM meeting_search WHERE [Search Page] = $page AND [Search Longitude] || ',' || [Search Latitude] = '$coords';") -eq 0 ; then
             ./parse_search.py $coords $page
         else

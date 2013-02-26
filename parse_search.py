@@ -2,7 +2,7 @@
 from lxml.html import parse
 import datetime
 
-from lib import page, page_number_arg
+from lib import page, search_args
 
 def is_valid_page(html):
     error_text = [error_pane.text_content() for error_pane in html.cssselect('.error-pane')]
@@ -62,9 +62,10 @@ def main_sqlite():
     html = lxml.html.parse(filename).getroot()
     data = table_data(html)
     for row in data:
-        row['Page'] = n
-    dt.insert(data, 'meeting_search')
-    print('Parsed page %d' % n)
+        row['Search Longitude'], row['Search Latitude'] = dirname.split(',')
+        row['Search Page'] = n
+    dt.upsert(data, 'meeting_search')
+    print('Parsed (%s) page %d' % (dirname, n))
 
 if __name__ == '__main__':
     main_sqlite()
