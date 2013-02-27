@@ -13,6 +13,9 @@ def has_correct_page_number(html, page_number):
     observed_page_numbers = set(map(int, html.xpath('//span[@class="current"]/text()')))
     return observed_page_numbers == {page_number}
 
+MANUAL_TIMES = [
+    ('1:60 AM', '2:00 AM'),
+]
 def table_data(html):
     trs = html.cssselect('.all-meetings tr')
     tr_head = trs[0]
@@ -28,6 +31,11 @@ def table_data(html):
         rowdata = dict(zip(keys, values))
         rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0]
         rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0]
+
+        for orig, changed in MANUAL_TIMES:
+            if rowdata['Time'] == orig:
+                rowdata['Time'] = changed
+
         if 'unknown' == rowdata['Time']:
             rowdata['Time'] = ''
         elif ':' in rowdata['Time']:
