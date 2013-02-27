@@ -99,6 +99,7 @@ def meeting_description(row):
     m2 = re.match(r'^Details: (.*)(Format|Language): (.*)$', desc)
     m1 = re.match(r'^Details: (.*)$', desc)
     mweird = re.match(r'^Details: (.*)[fF]ormat:(.*)$', desc)
+    mdetails = re.match(r'^Details: (.*)$', desc)
     if m3:
         row['Details'] = m3.group(1)
         row['Format'] = m3.group(2)
@@ -111,6 +112,8 @@ def meeting_description(row):
     elif mweird:
         row['Details'] = mweird.group(1)
         row['Format'] = mweird.group(2)
+    elif mdetails:
+        row['Details'] = mdetails.group(1)
     else:
         print desc
         assert False
