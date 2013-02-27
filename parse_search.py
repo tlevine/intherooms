@@ -30,8 +30,8 @@ def table_data(html):
         values[2] = '\n'.join(tr.xpath('td[position()=3]/text()')).replace('  ', ' ')
 
         rowdata = dict(zip(keys, values))
-        rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0].replace('\n', '')
-        rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0].replace('\n', '')
+        rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0].replace('\r', '').replace('\n', '')
+        rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0].replace('\r', '').replace('\n', '')
 
         for orig, changed in MANUAL_TIMES:
             if rowdata['Time'] == orig:
