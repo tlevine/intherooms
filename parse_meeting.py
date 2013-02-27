@@ -6,7 +6,11 @@ import lxml.html
 from lib import _id, meeting_description
 
 def meeting_info(html):
-    return html.cssselect('#meeting-description h3')[0].text_content()
+    h3s = html.cssselect('#meeting-description h3')
+    if len(h3s) == 0:
+        return ''
+    else:
+        return h3s[0].text_content()
 
 def main():
     import sys
