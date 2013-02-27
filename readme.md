@@ -59,6 +59,17 @@ Diagnose things
     sqlite3 intherooms.db < interesting.sql
     sqlite3 intherooms.db 'SELECT page, count(*) FROM meeting_search GROUP BY page'
 
+## Temporary notes
+I accidentally deleted these records on the run of the week of February 25.
+If I remove the `done-parsing` files and load the searches again, they will
+come back, without tabs.
+
+    [OrderedDict([(u'Meeting Title Link', u'/aa/ue\tpm0700-0800\tSpringfield-Study-Group\tSpringfield-\t/99181')]),
+     OrderedDict([(u'Meeting Title Link', u'/alanon/\tOLD-TOWN-DAYTIME-AL-ANON/85924')]),
+     OrderedDict([(u'Meeting Title Link', u'/na/Baja-Group--\t/85867')]),
+     OrderedDict([(u'Meeting Title Link', u'/na/HOPE-II-\t/98904')])]
+
+
 ## Scope
 robots.txt is good.
 

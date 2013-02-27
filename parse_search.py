@@ -18,7 +18,7 @@ MANUAL_TIMES = [
     ('6:OO PM', '6:00 PM'),
 ]
 def clean_link(link):
-    return link.replace('\r', '').replace('\n', '').replace('//', '/-/')
+    return link.replace('\r', '').replace('\n', '').replace('//', '/-/').replace('\t', '')
 
 def table_data(html):
     trs = html.cssselect('.all-meetings tr')
