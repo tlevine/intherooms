@@ -15,6 +15,7 @@ def has_correct_page_number(html, page_number):
 
 MANUAL_TIMES = [
     ('1:60 AM', '2:00 AM'),
+    ('6:OO PM', '6:00 PM'),
 ]
 def table_data(html):
     trs = html.cssselect('.all-meetings tr')
