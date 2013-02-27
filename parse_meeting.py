@@ -3,7 +3,7 @@ import os
 import dumptruck
 import lxml.html
 
-from lib import _id
+from lib import _id, meeting_description
 
 def meeting_info(html):
     return html.cssselect('#meeting-description h3')[0].text_content()
