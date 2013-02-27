@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 'General helpers'
+import re
 import math
 
 def page_ny(number):
@@ -113,3 +114,5 @@ def meeting_description(row):
     else:
         print desc
         assert False
+
+    return row

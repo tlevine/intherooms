@@ -17,6 +17,9 @@ MANUAL_TIMES = [
     ('1:60 AM', '2:00 AM'),
     ('6:OO PM', '6:00 PM'),
 ]
+def clean_link(link):
+    return link.replace('\r', '').replace('\n', '').replace('//', '/-/')
+
 def table_data(html):
     trs = html.cssselect('.all-meetings tr')
     tr_head = trs[0]
@@ -30,8 +33,8 @@ def table_data(html):
         values[2] = '\n'.join(tr.xpath('td[position()=3]/text()')).replace('  ', ' ')
 
         rowdata = dict(zip(keys, values))
-        rowdata['Meeting Title Link'] = tr.xpath('td[position()=1]/a/@href')[0].replace('\r', '').replace('\n', '')
-        rowdata['Location Link'] = tr.xpath('td[position()=2]/a/@href')[0].replace('\r', '').replace('\n', '')
+        rowdata['Meeting Title Link'] = clean_link(tr.xpath('td[position()=1]/a/@href')[0])
+        rowdata['Location Link'] = clean_link(tr.xpath('td[position()=2]/a/@href')[0])
 
         for orig, changed in MANUAL_TIMES:
             if rowdata['Time'] == orig:
