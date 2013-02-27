@@ -26,6 +26,7 @@ for coords in $(ls -d searches-usa/*|cut -d/ -f2); do
     touch "$done_parsing"
 done
 
+sqlite3 "$IN_THE_ROOMS_ROOT/intherooms.db" < manual_fixes-usa.sql
 ./download_all_meetings.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
 ./download_all_locations.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
 ./parse_all_meetings.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
