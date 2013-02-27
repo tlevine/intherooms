@@ -21,6 +21,7 @@ def main():
         'Url': url,
         'Meeting Description': meeting_info(html),
     }
+    data = meeting_description(data)
     dt.insert(data, 'meeting_info')
 
 if __name__ == '__main__':
