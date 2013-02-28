@@ -11,7 +11,7 @@ COORDS = re.compile(r'var startPoint = new google.maps.LatLng\(([0-9.]+), (-[0-9
 
 def coords(html_source):
     'Pick the latitude and longitude out of the text html source.'
-    lng, lat= map(float, re.findall(COORDS, html_source)[0])
+    lat, lng= map(float, re.findall(COORDS, html_source)[0])
     return {
         "Longitude": lng,
         "Latitude": lat
