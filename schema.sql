@@ -7,8 +7,8 @@ CREATE TABLE meeting_search (
   "Day" TEXT NOT NULL,
   "Time" TEXT NOT NULL,
   "Fellowship" TEXT NOT NULL,
-  "Search Longitude" FLOAT NOT NULL,
-  "Search Latitude" FLOAT NOT NULL,
+  "Search Longitude" REAL NOT NULL,
+  "Search Latitude" REAL NOT NULL,
   "Search Page" INTEGER NOT NULL,
   UNIQUE("Meeting Title Link")
 );
@@ -27,12 +27,32 @@ CREATE TABLE meeting_info (
 CREATE TABLE location (
   "Url" TEXT NOT NULL,
   "Location Description" TEXT NOT NULL,
+  "Longitude" REAL NOT NULL,
+  "Latitude" REAL NOT NULL,
   FOREIGN KEY ("Url") REFERENCES meeting_search ("Meeting Title Link"),
   UNIQUE("Url")
 );
 
 CREATE VIEW meeting AS
-SELECT *
+SELECT
+  "Fellowship",
+  "Meeting Title",
+  "Meeting Title Link",
+  "Meeting Description",
+
+  "Location",
+  "Location Link",
+  "Location Description",
+  "Address",
+  "Longitude",
+  "Latitude",
+
+  "Day",
+  "Time",
+  "Details",
+  "Format",
+  "Language",
+  "Phone"
 FROM meeting_search
 JOIN meeting_info ON "meeting_info"."Url" = "Meeting Title Link"
 JOIN location ON "location"."Url" = "Location Link";
