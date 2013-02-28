@@ -29,11 +29,11 @@ CREATE TABLE location (
   "Location Description" TEXT NOT NULL,
   "Longitude" REAL NOT NULL,
   "Latitude" REAL NOT NULL,
-  FOREIGN KEY ("Url") REFERENCES meeting_search ("Meeting Title Link"),
+  FOREIGN KEY ("Url") REFERENCES meeting_search ("Location Link"),
   UNIQUE("Url")
 );
 
-CREATE VIEW meeting AS
+CREATE VIEW meeting_with_location AS
 SELECT
   "Fellowship",
   "Meeting Title",
@@ -56,3 +56,21 @@ SELECT
 FROM meeting_search
 JOIN meeting_info ON "meeting_info"."Url" = "Meeting Title Link"
 JOIN location ON "location"."Url" = "Location Link";
+
+CREATE VIEW meeting AS
+SELECT
+  "Fellowship",
+  "Meeting Title",
+  "Meeting Title Link",
+  "Meeting Description",
+
+  "Location Link",
+
+  "Day",
+  "Time",
+  "Details",
+  "Format",
+  "Language",
+  "Phone"
+FROM meeting_search
+JOIN meeting_info ON "meeting_info"."Url" = "Meeting Title Link";
