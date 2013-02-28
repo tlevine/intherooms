@@ -30,4 +30,3 @@ done
 ./download_all_locations.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
 ./parse_all_meetings.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
 ./parse_all_locations.sh "$IN_THE_ROOMS_ROOT/intherooms.db"
-./parse_meeting-description.py
