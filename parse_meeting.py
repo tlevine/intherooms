@@ -21,6 +21,9 @@ def main():
         adapt_and_convert = True
     )
     html = lxml.html.parse(filename).getroot()
+    if html == None:
+        print('%d.html is empty' % _id(url))
+        exit()
     data = {
         'Url': url,
         'Meeting Description': meeting_info(html),
