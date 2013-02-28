@@ -58,6 +58,7 @@ Diagnose things
     sqlite3 intherooms.db < todo.sql
     sqlite3 intherooms.db < interesting.sql
     sqlite3 intherooms.db 'SELECT page, count(*) FROM meeting_search GROUP BY page'
+    ./validity-test-sample.sh
 
 ## Temporary notes
 I accidentally deleted these records on the run of the week of February 25.
