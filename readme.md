@@ -138,3 +138,17 @@ Here are my questions/considerations from when we first discussed this.
     specialized tasks.
 7. Consider telling In The Rooms about the MVP as a way to convince them that
     it will be useful for them to provide Addicaid with the data.
+
+## About In the Rooms
+In the Rooms is run by
+[Ken Pomerance](http://kenpomerance.com/)
+("[Mr Clean](http://opencorporates.com/companies/us_fl/P06000144749)")
+and RON "RT" TANNEBAUM
+([two](http://100interviews.com/post/2050725736/71)
+[interviews](http://www.recoverymonth.gov/Multimedia/Ask-the-Expert/Bio-Ronald-Tannebaum.aspx)).
+
+Here are some more links
+
+* [Open Corporates](http://opencorporates.com/companies/us_fl/P07000095303)
+* [Corporation Wiki](http://www.corporationwiki.com/Florida/Plantation/ronald-d-tannebaum-P2117824.aspx)
+* [Ken's Twitter](https://twitter.com/Mrclean1982)
