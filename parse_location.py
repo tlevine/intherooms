@@ -29,12 +29,18 @@ def main():
     url = sys.argv[1]
 
     filename = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'locations', '%d.html' % _id(url))
+
     dt = dumptruck.DumpTruck(
         dbname = os.path.join(os.environ['IN_THE_ROOMS_ROOT'], 'intherooms.db'),
         adapt_and_convert = True
     )
 
     source = open(filename).read()
+
+    if not re.findall(COORDS, source):
+        print('No coordinates were found; this page probably redirects to the home page.')
+        return
+
     html = lxml.html.parse(filename).getroot()
 
     data = {
