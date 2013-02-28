@@ -16,8 +16,6 @@ CREATE TABLE meeting_search (
 CREATE TABLE meeting_info (
   "Url" TEXT NOT NULL,
   "Meeting Description" TEXT NOT NULL,
-  "Latitude" FLOAT,
-  "Longitude" FLOAT,
   "Details" TEXT,
   "Format" TEXT,
   "Language" TEXT,
