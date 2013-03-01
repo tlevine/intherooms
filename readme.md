@@ -137,7 +137,9 @@ Here are my questions/considerations from when we first discussed this.
 6. Tom may request Addicaid's help for writing test fixtures and for other less
     specialized tasks.
 7. Consider telling In The Rooms about the MVP as a way to convince them that
-    it will be useful for them to provide Addicaid with the data.
+    it will be useful for them to provide Addicaid with the data. (Addicaid
+    had already contacted In The Rooms about getting the data, but they didn't
+    hear back or something.)
 
 ## About In the Rooms
 In the Rooms is run by
